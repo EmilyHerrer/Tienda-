@@ -8,10 +8,17 @@
     font-weight: bold;
     font-size: 50px;
 }
-.parrafosSecundario{
+a{
     color: blueviolet;
 }
-p {
-    color: brown;
-    
+a:hover{
+    color: white;
+    background-color: black;
+    font-size: 25px;
+    transition: 0.9s;
 }
+a:active{
+    color: crimson;
+    background-color: cadetblue;
+}
+
