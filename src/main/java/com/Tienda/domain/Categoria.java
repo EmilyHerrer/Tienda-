@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table (name="categoria")
+@Table (name="Categoria")
 public class Categoria implements Serializable{
     
     //version de serializacion
@@ -15,16 +15,15 @@ public class Categoria implements Serializable{
     
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name='id_categoria')
-    private long idcategoria; // se transforma en id_categoria 
-    private string descripcion;
-    private string rutaImagen;
+    private long idCategoria; // se transforma en id_categoria 
+    private String descripcion;
+    private String rutaImagen;
     private boolean activo;
     
     public Categoria() {
     
 }
-    public Categoria(string descripcion, string rutaImagen, boolean activo){
+    public Categoria(String descripcion, String rutaImagen, boolean activo){
         this.descripcion = descripcion;
         this.rutaImagen = rutaImagen;
         this.activo = activo;
