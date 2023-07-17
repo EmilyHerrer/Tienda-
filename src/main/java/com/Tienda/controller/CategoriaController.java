@@ -1,4 +1,3 @@
-
 package com.Tienda.controller;
 
 import com.Tienda.domain.Categoria;
@@ -12,30 +11,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
-
-
-
 @Controller
 @Slf4j
 @RequestMapping("/categoria")
 public class CategoriaController {
-    
-    
+
     @Autowired
     CategoriaService categoriaservice;
-    
+
     @GetMapping("/listado")
     public String inicio(Model model) {
-        
-        
+
         log.info("consumiendo el recurso /categoria/listado");
-        List<Categoria> Categorias = categoriaservice.getCategorias(false);
-        model.addAttribute("categorias", categoriaservice);
-        model.addAttribute("totalcategorias", Categorias.size());
+        //List<Categoria> categorias = categoriaservice.getCategorias(false);
+        List<Categoria> categorias = categoriaservice.getPorDescripcion("Teclados");
+        model.addAttribute("categorias", categorias);
+        model.addAttribute("totalCategorias", categorias.size());
         return "/categoria/listado";
     }
+
     @GetMapping("/nuevo")
     public String categoriaNuevo(Categoria categoria) {
         return "/categoria/modifica";
@@ -43,19 +37,18 @@ public class CategoriaController {
 
     @Autowired
     private FirebaseStorageServiceImpl firebasestorageservice;
-    
+
     @PostMapping("/guardar")
     public String categoriaGuardar(Categoria categoria,
-            @RequestParam("imagenFile") MultipartFile imagenFile) {        
+            @RequestParam("imagenFile") MultipartFile imagenFile) {
         if (!imagenFile.isEmpty()) {
             categoriaservice.save(categoria);
             categoria.setRutaImagen(
-                    
                     firebasestorageservice.cargaImagen(
-                            imagenFile, 
-                            "categoria", 
+                            imagenFile,
+                            "categoria",
                             categoria.getIdCategoria()));
-       }
+        }
         categoriaservice.save(categoria);
         return "redirect:/categoria/listado";
     }
